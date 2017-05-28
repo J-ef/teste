@@ -1,0 +1,214 @@
+*{ margin:0;
+    padding:0;
+}
+
+@font-face {
+    font-family: 'OpenSans';
+    src: url("../fonts/Open_Sans/OpenSans-Regular.ttf");
+    font-size: 1em;
+}
+@font-face {
+    font-family: 'OpenSans-Light';
+    src: url("../fonts/Open_Sans/OpenSans-Light.ttf");
+    font-size: 1em;
+}
+
+html, body{
+    height:100%;
+}
+
+
+header {
+    width: 100%;
+    height: 50px;
+    background-color: rgba(211, 211, 211, .8);
+    z-index: 1;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    overflow: hidden;
+
+}
+
+#btn-bars {
+    color: #fff;
+    font-size: 30px;
+    position: absolute;
+    top: 9px;
+    left: 10px;
+    background: none;
+    border: none;
+    outline: 0;
+    overflow: hidden;
+    cursor: pointer;
+    left: 20px;
+}
+
+
+#btn-bars {
+.left: 20px;
+}
+
+
+
+/*Teste Menu*/
+
+
+/* Isto é necessário para não haver rolagens horizontais quando movermos os elementos */
+html, body {overflow-x: hidden;}
+
+header h1 {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    width: 80%;
+    font-size: 1.5em;
+}
+h1 a {color: #FFF; text-decoration: none;}
+
+header input {
+    float: right;
+    padding: 10px;
+    width: 200px;
+    border: none;
+}
+
+.main {
+    padding:0;
+    background-color: blue;
+    height: calc(100% - 100px); /* 100px se refere a soma do height do header e rodapé*/
+    z-index: 1;
+    position: relative;
+}
+
+.main p {
+    font-size: .9em;
+    line-height: 1.2em;
+}
+
+/*
+.menu-anchor {
+	width: 40px;
+	height: 32px;
+	display: inline-block;
+	vertical-align: middle;
+	position: relative;
+	text-indent: -9999px;
+	overflow: hidden;
+	cursor: pointer;
+	background: #FFF;
+	left:15px;
+}
+
+.menu-anchor:before {
+	content: "";
+	display: block;
+	margin: 7px auto;
+	width: 70%;
+	height: 0.25em;
+	background: #f49c14;
+	box-shadow: 0 .45em 0 0 #f49c14, 0 .9em 0 0 #f49c14;
+}
+
+
+.menu-active .menu-anchor {background: #d55401}*/
+
+menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 300px;
+    height: 100%;
+    padding-top: 10px;
+    box-shadow: inset -0.2px -2px 0px 0 rgba(0,0,0,0.5);;
+    background-color: rgba(211, 211, 211, .8);
+}
+
+menu li a {
+    display: block;
+    .border-bottom: 1px solid rgba(255,255,255,.3);
+    margin: 0 10px;
+    padding: 10px;
+    color: #FFF;
+    text-decoration: none;
+}
+
+menu li a:hover {
+    background-color: rgba(192, 192, 192, .2);
+    color: #000;
+}
+
+
+/*
+	Aqui você esconde o menu para fora da tela
+	O valor é exatamente a largura da sidebar
+*/
+menu {
+    -webkit-transform: translateX(-300px);
+    -moz-transform: translateX(-300px);
+    -ms-transform: translateX(-300px);
+    transform: translateX(-300px);
+    -webkit-transition: all .25s linear;
+    -moz-transition: all .25s linear;
+    -ms-transition: all .25s linear;
+    transition: all .25s linear;
+}
+
+/*
+	Essa é a posição original do HEADER e do MAIN
+*/
+header,footer, .main {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0);
+    -webkit-transition: all .25s linear;
+    -moz-transition: all .25s linear;
+    -ms-transition: all .25s linear;
+    transition: all .25s linear;
+}
+
+/*
+   Com a classe menu-active na tag HTML
+*/
+.menu-active menu {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0);
+}
+
+.menu-active header, .menu-active footer,
+.menu-active .main {
+    -webkit-transform: translateX(300px);
+    -moz-transform: translateX(300px);
+    -ms-transform: translateX(300px);
+    transform: translateX(300px);
+}
+
+/**Fim teste menu*/
+
+#conteudo{
+    height: 100%;
+
+ }
+
+#central-content{
+    background-color: red;
+    width: 100%;
+    height: 100%;
+    transition: 1s;
+
+}
+
+footer{
+    width: 100%;
+    height: 50px;
+    background-color: rgba(211, 211, 211, .8);
+    z-index: 1;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    overflow: hidden;
+}
