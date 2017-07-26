@@ -7,107 +7,106 @@
 
 namespace Application;
 
+use Application\Controller\AuthController;
 use Application\Controller\Factory\AuthControllerFactory;
-use Application\Controller\Factory\OperadorControllerFactory;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
-use Zend\ServiceManager\Factory\InvokableFactory;
+use Dashboard\Controller\DashboardController;
+use Index\Controller\IndexController;
 
 return [
-    'router' => [
+   'router' => [
         'routes' => [
-
             'home' => [
                 'type' => Literal::class,
                 'options' => [
-                    'route' => '/'
-                ],
-                'may_terminate' => false,
-                'child_routes' => [
-                    'home-public' => [
-                        'type' =>  Segment::class,
-                        'options' => [
-                            'route' => '[:action[/:id]]',
-                            'constraints' => [
-                                'action'  => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[0-9]+',
-                            ],
-                            'defaults' => [
-                                'controller' => Controller\IndexController::class,
-                                'action' => 'login'
-                            ]
-                        ]
+                    'route'    => '/',
+                    'defaults' => [
+                        'controller' => IndexController::class,
+                        'action'     => 'index',
                     ],
-
-                    'auth' => [
-                        'type' =>  Segment::class,
-                        'options' => [
-                            'route' => 'auth[/:action[/:id]]',
-                            'constraints' => [
-                                'action'  => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[0-9]+',
-                            ],
-                            'defaults' => [
-                                'controller' => Controller\AuthController::class,
-                                'action' => 'login'
-                            ]
-                        ]
-                    ]
-                ]
+                ],
+            ],
+            'index' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '[/:action]',
+                    'defaults' => [
+                        'controller' => IndexController::class,
+                        'action'     => 'index',
+                    ],
+                ],
             ],
 
-            'app' => [
+            /*Rota de Autenticação*/
+            'auth_literal' => [
+                'type'    => Literal::class,
+                'options' => [
+                    'route'    => '/auth/login',
+                    'defaults' => [
+                        'controller' => AuthController::class,
+                        'action'     => 'login',
+                    ],
+                ],
+            ],
+            'auth_segment' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/auth[/:action]',
+                    'defaults' => [
+                        'controller' => AuthController::class,
+                        'action'     => 'login',
+                    ],
+                ],
+            ],
+
+
+            /*Rota Dashboard*/
+            'app_literal' => [
                 'type' => Literal::class,
                 'options' => [
-                    'route' => '/app'
-                ],
-                'may_terminate' => false,
-                'child_routes' => [
-                    'dashboard' => [
-                        'type' =>  Segment::class,
-                        'options' => [
-                            'route' => '/dashboard[/:action[/:id]]',
-                            'constraints' => [
-                                'action'  => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[0-9]+',
-                            ],
-                            'defaults' => [
-                                'controller' => Controller\DashboardController::class,
-                                'action' => 'index'
-                            ]
-                        ]
+                    'route'    => '/app/dashboard',
+                    'defaults' => [
+                        'controller' => DashboardController::class,
+                        'action'     => 'index',
                     ],
-
-                    'operador' => [
-                        'type' =>  Segment::class,
-                        'options' => [
-                            'route' => '/operador[/:action[/:id]]',
-                            'constraints' => [
-                                'action'  => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[0-9]+',
-                            ],
-                            'defaults' => [
-                                'controller' => Controller\OperadorController::class,
-                                'action' => 'index'
-                            ]
-                        ]
-                    ]
-                ]
+                ],
             ],
-        ]
-
-
-    ],
-    'controllers' => [
-        'factories' => [
-            Controller\IndexController::class => InvokableFactory::class,
-            Controller\AuthController::class  => AuthControllerFactory::class,
-            Controller\DashboardController::class => InvokableFactory::class,
-            Controller\OperadorController::class  => OperadorControllerFactory::class
+            'app_segment' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/app/dashboard[/:action]',
+                    'defaults' => [
+                        'controller' => DashboardController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
         ],
-    ],
 
+       'doctrine' =>[
+           'driver' =>[
+               'DB_Driver' =>[
+                   'class'=>AnnotationDriver::class,
+                   'cache'=>'array',
+                   'paths'=>[
+                       __DIR__ . '/../src/Entity'
+
+                   ]
+               ],
+               'orm_default'=>[
+                   'drivers'=>[
+                       'Application\Entity'=>'DB_Driver'
+                   ]
+               ]
+           ]
+       ],
+    ]
+
+
+
+    /*,
     'view_manager' => [
         'display_not_found_reason' => true,
         'display_exceptions'       => true,
@@ -115,38 +114,13 @@ return [
         'not_found_template'       => 'error/404',
         'exception_template'       => 'error/index',
         'template_map' => [
-            'layout/layout'               => __DIR__ . '/../view/layout/layout.phtml',
-            'application/index/index'     => __DIR__ . '/../view/application/index/index.phtml',
-            'application/dashboard/index' => __DIR__ . '/../view/application/dashboard/index.phtml',
-            'error/404'                   => __DIR__ . '/../view/error/404.phtml',
-            'error/index'                 => __DIR__ . '/../view/error/index.phtml',
-
+            'layout/layout'           => __DIR__ . '/../view/layout/dashboard_layout.phtml',
+            'index/index/index' => __DIR__ . '/../view/index/index/index.phtml',
+            'error/404'               => __DIR__ . '/../view/error/404.phtml',
+            'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ],
         'template_path_stack' => [
             __DIR__ . '/../view',
         ],
-        'strategies' => array(
-            'ViewJsonStrategy',
-        ),
-    ],
-
-    'doctrine' =>[
-        'driver' =>[
-            'Auth_driver' =>[
-                'class'=>AnnotationDriver::class,
-                'cache'=>'array',
-                'paths'=>[
-                    __DIR__.'/../src/Entity'
-
-                ]
-            ],
-            'orm_default'=>[
-                'drivers'=>[
-                    'Application\Entity'=>'Auth_driver'
-                ]
-            ]
-        ]
-    ]
-
-
+    ]*/
 ];

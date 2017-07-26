@@ -1,0 +1,62 @@
+<?= $this->doctype() ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?= $this->headTitle('ZF Skeleton Dashboard')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?= $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
+            ->prependStylesheet($this->basePath('css/bootstrap-theme.css'))
+            ->prependStylesheet($this->basePath('css/bootstrap.css'))
+            ->prependStylesheet($this->basePath('css/style.css'))
+            ->prependStylesheet($this->basePath('css/prototype.css'))
+            ->prependStylesheet($this->basePath('css/crud.css'))
+            ->prependStylesheet($this->basePath('css/footable.bootstrap.css'))
+            ->prependStylesheet($this->basePath('fonts/font-awesome/css/font-awesome.min.css'))
+        //->prependStylesheet($this->basePath('css/materialize.css'))
+
+        ?>
+
+        <!-- Scripts -->
+        <?= $this->headScript()
+            ->prependFile($this->basePath('lib/prototype.js'))
+            ->prependFile($this->basePath('js/footable.js'))
+            ->prependFile($this->basePath('lib/navigation.js'))
+            ->prependFile($this->basePath('lib/service.js'))
+            ->prependFile($this->basePath('js/bootstrap.js'))
+            ->prependFile($this->basePath('js/materialize.js'))
+            ->prependFile($this->basePath('js/jquery-3.2.1.js'))
+        ?>
+    </head>
+    <body>
+        <header id="layout_header">
+            <button id="btn-bars" type ="button"><i class="fa fa-bars menu-anchor"></i></button>
+        </header>
+
+        <menu>
+            <div class="id-profile" >
+                <div>
+                    <ul>
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#" class="url" id="menuOperador" data-href="/app/dashboard/operador/index" data-load="/app/operador/getOperador">Operador</a></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#" id="logOut" >Sair </a> </li>
+                    </ul>
+                </div>
+        </menu>
+        <div id ="main" class="main">
+            <div class="container-fluid ">
+                <?= $this->content ?>
+            </div>
+        </div>
+    </body>
+</html>

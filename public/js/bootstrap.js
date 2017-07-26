@@ -584,7 +584,7 @@ if (typeof jQuery === 'undefined') {
     if (this.transitioning || this.$element.hasClass('in')) return
 
     var activesData
-    var actives = this.$parent && this.$parent.children('.dashboard').children('.in, .collapsing')
+    var actives = this.$parent && this.$parent.children('.index').children('.in, .collapsing')
 
     if (actives && actives.length) {
       activesData = actives.data('bs.collapse')

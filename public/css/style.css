@@ -1,6 +1,3 @@
-*{ margin:0;
-    padding:0;
-}
 
 @font-face {
     font-family: 'OpenSans';
@@ -13,8 +10,16 @@
     font-size: 1em;
 }
 
-html, body{
+@font-face {
+    font-family: 'FontAwesome';
+    src: url("../fonts/font-awesome/fonts/fontawesome-webfont.svg");
+    font-size: 1em;
+}
+
+html ,body{
     height:100%;
+    min-height: 100%;
+    overflow: hidden;
 }
 
 
@@ -27,6 +32,7 @@ header {
     flex-direction: row;
     align-items: center;
     overflow: hidden;
+    border-bottom:1px solid;
 
 }
 
@@ -35,7 +41,6 @@ header {
     font-size: 30px;
     position: absolute;
     top: 9px;
-    left: 10px;
     background: none;
     border: none;
     outline: 0;
@@ -46,12 +51,10 @@ header {
 
 
 #btn-bars {
-.left: 20px;
+    .left: 20px;
 }
 
 
-
-/*Teste Menu*/
 
 
 /* Isto é necessário para não haver rolagens horizontais quando movermos os elementos */
@@ -73,45 +76,20 @@ header input {
     border: none;
 }
 
-.main {
+#main {
     padding:0;
-    background-color: blue;
-    height: calc(100% - 100px); /* 100px se refere a soma do height do header e rodapé*/
+    min-height: calc(100% - 50px) /* 100px se refere a soma do height do header e rodapé*/;
     z-index: 1;
+    .position: absolute!important;
+    width: 100%;
     position: relative;
 }
 
-.main p {
+#main p {
     font-size: .9em;
     line-height: 1.2em;
 }
 
-/*
-.menu-anchor {
-	width: 40px;
-	height: 32px;
-	display: inline-block;
-	vertical-align: middle;
-	position: relative;
-	text-indent: -9999px;
-	overflow: hidden;
-	cursor: pointer;
-	background: #FFF;
-	left:15px;
-}
-
-.menu-anchor:before {
-	content: "";
-	display: block;
-	margin: 7px auto;
-	width: 70%;
-	height: 0.25em;
-	background: #f49c14;
-	box-shadow: 0 .45em 0 0 #f49c14, 0 .9em 0 0 #f49c14;
-}
-
-
-.menu-active .menu-anchor {background: #d55401}*/
 
 menu {
     position: fixed;
@@ -127,7 +105,7 @@ menu {
 
 menu li a {
     display: block;
-    .border-bottom: 1px solid rgba(255,255,255,.3);
+.border-bottom: 1px solid rgba(255,255,255,.3);
     margin: 0 10px;
     padding: 10px;
     color: #FFF;
@@ -158,7 +136,7 @@ menu {
 /*
 	Essa é a posição original do HEADER e do MAIN
 */
-header,footer, .main {
+header,footer, #main {
     -webkit-transform: translateX(0);
     -moz-transform: translateX(0);
     -ms-transform: translateX(0);
@@ -180,7 +158,7 @@ header,footer, .main {
 }
 
 .menu-active header, .menu-active footer,
-.menu-active .main {
+.menu-active #main {
     -webkit-transform: translateX(300px);
     -moz-transform: translateX(300px);
     -ms-transform: translateX(300px);
@@ -189,15 +167,12 @@ header,footer, .main {
 
 /**Fim teste menu*/
 
-#conteudo{
-    height: 100%;
 
- }
 
-#central-content{
-    background-color: red;
+#content{
     width: 100%;
-    height: 100%;
+    min-height: calc(100% - 100px);
+    height: calc(100% - 100px);
     transition: 1s;
 
 }
@@ -211,4 +186,59 @@ footer{
     flex-direction: row;
     align-items: center;
     overflow: hidden;
+    border-top:1px solid;
+    position: absolute;
+    bottom: 0;
+
+
 }
+
+#central-content{
+    height: 100%;
+    min-height: 100%;
+
+}
+
+.wrapper {
+    height: 100%;
+    min-height: 100%;
+    display: -webkit-flex !important;
+    display: flex !important;
+    -webkit-align-items: center !important;
+    align-items: center !important;
+    -webkit-justify-content: center !important;
+    justify-content: center !important;
+}
+
+/*Action de Login*/
+
+#content-login{
+    width:auto !important;
+}
+
+/*########################*/
+
+
+#layout_header {
+    min-height: 50px;
+    width: 100%;
+    height: 50px;
+    background-color: rgba(211, 211, 211, .8);
+    z-index: 1;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    overflow: hidden;
+    border-bottom:1px solid;
+
+}
+
+#layout_conteudo {
+
+    padding-bottom: 2px;
+    width:100%;
+    margin: 0 auto;
+    min-height: calc(100% - 100px);
+
+}
+

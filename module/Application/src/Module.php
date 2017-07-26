@@ -6,75 +6,53 @@
  */
 
 namespace Application;
-error_reporting(E_ERROR);
 
 use Application\Controller\AuthController;
 use Application\Controller\Factory\AuthControllerFactory;
-use Application\Controller\IndexController;
 use Application\Service\Factory\AuthenticationServiceFactory;
 use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\AuthenticationServiceInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ControllerProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
-use Zend\Mvc\Application;
 use Zend\Mvc\MvcEvent;
+
 
 class Module implements ConfigProviderInterface ,ServiceProviderInterface ,ControllerProviderInterface {
 
     const VERSION = '3.0.3-dev';
-/*
-    public function onBootstrap(MvcEvent $e) {
-
-        $eventManager = $e->getApplication()->getEventManager();
-        $container    = $e->getApplication()->getServiceManager();
-        $eventManager->attach(MvcEvent::EVENT_DISPATCH,
-            function (MvcEvent $e) use ($container) {
-                $match = $e->getRouteMatch();
-                $authService = $container->get(AuthenticationServiceInterface::class);
-                $routeName   = $match->getMatchedRouteName();
-
-                if ($authService->hasIdentity()) {
-                    return;
-                } elseif (strpos($routeName, 'app') !== false) {
-                    $response = $e->getResponse();
-                    $response->getHeaders()->addHeaderLine('Location', '/login');
-                    $response->setStatusCode(302);
-                    return $response;
-
-
-                }
-        }, 100);
-    }
-
-*/
-
-
-    public function onBootstrap(MvcEvent $event)
-    {
-        $application = $event->getApplication();
-        $eventManager = $application->getEventManager();
-
-        $eventManager->attach(MvcEvent::EVENT_DISPATCH_ERROR, function($e) {
-            $error = $e->getError();
-            switch ($error) {
-                case Application::ERROR_ROUTER_NO_MATCH:
-
-                    var_dump($error);
-
-                    $response = $e->getResponse();
-                    $response->getHeaders()->addHeaderLine('Location', '/login');
-                    $response->setStatusCode(302);
-                    return $response;
-                    break;
-            }
-        }, 100);
-    }
-
 
     public function getConfig(){
         return include __DIR__ . '/../config/module.config.php';
     }
+
+
+    /*Funçao que detecta o caminhoa acessado e determina qual layout ultilizar*/
+    public function onBootstrap(MvcEvent  $e){
+        $e->getApplication()->getEventManager()->getSharedManager()->attach('Zend\Mvc\Controller\AbstractController', 'dispatch', function($e) {
+            /** @var MvcEvent $e*/
+            $controller      = $e->getTarget();
+            $controllerClass = get_class($controller);
+            $moduleNamespace = substr($controllerClass, 0, strpos($controllerClass, '\\'));
+            $config = $e->getApplication()->getServiceManager()->get('config');
+
+            if (isset($config['module_layouts'][$moduleNamespace])) {
+                $controller->layout($config['module_layouts'][$moduleNamespace]);
+                var_dump($controllerClass);
+            }
+        }, 0);
+    }
+
+
+    public function getControllerConfig(){
+        return [
+            'factories' =>[
+                AuthController::class  => AuthControllerFactory::class
+            ]
+        ];
+
+    }
+
 
     public function getServiceConfig(){
 
@@ -83,18 +61,10 @@ class Module implements ConfigProviderInterface ,ServiceProviderInterface ,Contr
                 AuthenticationService::class =>   AuthenticationServiceInterface::class
             ],
             'factories'=>[
-                AuthenticationServiceInterface::class =>   AuthenticationServiceFactory::class
+                AuthenticationServiceInterface::class => AuthenticationServiceFactory::class
             ]
         ];
 
     }
 
-    public function getControllerConfig(){
-
-        return [
-            'factories' =>[
-                AuthController::class  => AuthControllerFactory::class,
-            ]
-        ];
-    }
 }

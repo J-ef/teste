@@ -1,5 +1,6 @@
 <?php
 
+
 use Application\Entity\Operador;
 use Doctrine\ORM\EntityManager;
 
@@ -20,15 +21,15 @@ return array(
             )
         ),
         'authentication' => [
-            'orm_default' => [
+            'orm_default' => array(
                 'object_manager' => EntityManager::class,
                 'identity_class' => Operador::class,
                 'identity_property' =>'usuario',
                 'credential_property' =>'senha',
-                'credential_callable' => function(Operador $operador,$passwordSent) {
-                    return password_verify($passwordSent, $operador->getSenha());
+                'credential_callable' => function(Operador $user, $passwordSent) {
+                    return password_verify($passwordSent, $user->getSenha());
                 }
-            ]
+            )
         ]
     )
 );

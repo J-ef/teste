@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Operador
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="IDOPERADOR", type="integer", nullable=false)
      * @ORM\Id
@@ -61,7 +61,7 @@ class Operador
      *
      * @ORM\Column(name="PERMISSAO", type="string", length=45, nullable=false)
      */
-    private $permissao = '1';
+    private $permissao;
 
     /**
      * @return int
@@ -191,4 +191,3 @@ class Operador
 
 
 }
-

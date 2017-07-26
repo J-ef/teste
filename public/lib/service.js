@@ -4,30 +4,31 @@ $(function(){
         var dados = $('#formLogin').serialize();
 
         $.ajax({
-            url: "/auth/login", // url da logica que você irá executar
+            url: "/auth/login",
             type:"POST",
-            data: dados, // aqui recebe um objeto com quantos parametros voce quiser assim, dados podem ser enviados dinamicamente
+            data: dados,
             dataType: "JSON"
         }).done(function(result) {
 
+            alert(result);
+
+            /*
             if(result.success == true){
                 window.location.assign(result.redirect);
             }else{
                 alert('Usuario ou Senha inválidos');
-            }
+            }*/
 
-        }).fail(function(jqXHR,textStatus,errorThrown){ // se der erro entra aqui
+        }).fail(function(jqXHR,textStatus,errorThrown){
             console.log(errorThrown);
         })
-    })
-
-
+    });
 
 
     $("#logOut").click(function(){
 
         $.ajax({
-            url: "/auth/logout", // url da logica que você irá executar
+            url: "/auth/logout",
             type:"POST",
             dataType: "JSON"
         }).done(function(result) {
@@ -38,17 +39,10 @@ $(function(){
                 alert('Não foi Possivel executar esta ação');
             }
 
-        }).fail(function(jqXHR,textStatus,errorThrown){ // se der erro entra aqui
+        }).fail(function(jqXHR,textStatus,errorThrown){
             console.log(errorThrown);
         })
-    })
-
-
-
-
-
-
-
+    });
 });
 
 /**

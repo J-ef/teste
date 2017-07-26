@@ -6,24 +6,23 @@
  */
 
 /**
- * List of enabled modules for this application.
+ * List of enabled modules for this index.
  *
- * This should be an array of module namespaces used in the application.
+ * This should be an array of module namespaces used in the index.
  */
 return [
     'Zend\Cache',
-    'Zend\Session',
-    'Zend\Mvc\Plugin\Prg',
-    'Zend\Mvc\Plugin\Identity',
-    'Zend\Mvc\Plugin\FlashMessenger',
-    'Zend\Mvc\Plugin\FilePrg',
-    'Zend\Mvc\Console',
-    'Zend\Log',
     'Zend\Form',
-    'Zend\Db',
+    'Zend\InputFilter',
+    'Zend\Filter',
+    'Zend\Paginator',
+    'Zend\Hydrator',
     'Zend\Router',
     'Zend\Validator',
+    'ZendDeveloperTools',
     'DoctrineModule',
     'DoctrineORMModule',
     'Application',
+    'Index',
+    'Dashboard'
 ];
